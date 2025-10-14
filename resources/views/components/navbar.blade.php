@@ -7,7 +7,7 @@
           <a class="nav-link" href="{{ route('user.index') }}">List User</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('user.create') }}">Tambah User</a>
+          <a class="nav-link" href="{{ route('matakuliah.index') }}">List Mata Kuliah</a>
         </li>
       </ul>
     </div>

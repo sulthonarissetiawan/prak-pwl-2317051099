@@ -1,26 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="mb-4">Daftar Pengguna</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Daftar Pengguna</h2>
+        <a href="{{ route('user.create') }}" class="btn btn-primary">+ Tambah Pengguna</a>
+    </div>
 
-    <table class="table table-bordered table-striped shadow-sm">
+    <table class="table table-bordered table-striped shadow-sm align-middle">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Nama</th>
                 <th>NPM</th>
                 <th>Kelas</th>
+                <th width="150">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @forelse ($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->nama }}</td>
                     <td>{{ $user->npm }}</td>
-                    <td>{{ $user->nama_kelas }}</td>
+                    <td>{{ $user->nama_kelas ?? '-' }}</td>
+                    <td class="text-center">
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning me-1">Edit</a>
+                        <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="btn btn-sm btn-danger"
+                                onclick="return confirm('Yakin ingin menghapus pengguna ini?')">
+                                Hapus
+                            </button>
+                        </form>
+                    </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">Belum ada data pengguna.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 @endsection
