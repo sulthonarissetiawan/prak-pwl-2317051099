@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\InfoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\UserController;   
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +21,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('profile/{nama}/{npm}/{kelas}', [ProfileController::class, 'profile']);
+Route::get('/tampil', function () {
+    return view('home');
+});
 
-Route::get('/user', [UserController::class, 'index'])->name('user.index');
-Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
-Route::post('/user', [UserController::class, 'store'])->name('user.store');
+// Route::get('/profil', function () {
+//     return view('profile');
+// });
+
+Route::get('/profile/{nama}/{npm}/{kelas}',[ProfileController::class,'profile']);
+Route::get('/menu',[MenuController::class,'menu']);
+
+Route::get('/user',[UserController::class,'index'])->name('user.index');
+Route::get('/user/create',[UserController::class,'create'])->name('user.create');
+Route::post('/user/store',[UserController::class,'store'])->name('user.store');
